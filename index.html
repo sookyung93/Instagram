@@ -15,6 +15,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
+    <script src="main.js" defer></script>
   </head>
   <body>
     <nav class="navbar">
@@ -33,7 +34,7 @@
       </div>
     </nav>
 
-    <div class="main">
+    <section class="main">
       <div class="contents">
         <div class="contents__story">
           <img class="contents__story__profile" src="img/zzang1.jpg" alt="" />
@@ -68,7 +69,7 @@
         </div>
 
         <div class="contents__feed">
-          <article class="contents__feed__card">
+          <!-- <article class="contents__feed__card">
             <div class="card__info">
               <div class="card__info__profile">
                 <img class="profile__img" src="img/zzang1.jpg" alt="" />
@@ -93,25 +94,29 @@
             </div>
             <div class="card__bottom">
               <p class="bottom__like">
-                <span class="bottom__like__id">zzang1</span>님 외
+                <span class="bottom__like__id">zzang2</span>님 외
                 <span class="bottom__like__count">여러명</span>이 좋아합니다.
               </p>
               <div class="bottom__comment">
-                <span>건후 귀요미</span>
+                <span class="comment__id">zzang1</span>
+                <span class="comment__text"
+                  >건후 귀요미<br />
+                  건후 볼 통통!</span
+                >
                 <span class="bottom__comment__tag">#건후</span>
                 <span class="bottom__comment__tag">#슈돌</span>
               </div>
               <div class="bottom__reply">
-                <p class="reply">
-                  <span class="reply__id">zzang1</span
-                  ><span class="reply__comment">귀여워</span>
-                </p>
                 <p class="reply">
                   <span class="reply__id">zzang2</span
                   ><span class="reply__comment">귀여워</span>
                 </p>
                 <p class="reply">
                   <span class="reply__id">zzang3</span
+                  ><span class="reply__comment">귀여워</span>
+                </p>
+                <p class="reply">
+                  <span class="reply__id">zzang4</span
                   ><span class="reply__comment">귀여워</span>
                 </p>
               </div>
@@ -129,10 +134,65 @@
                 <button class="write-box__right">게시</button>
               </div>
             </div>
-          </article>
+          </article> -->
         </div>
       </div>
-      <div class="info"></div>
-    </div>
+      <div class="info">
+        <div class="info__my-profile">
+          <img class="my-profile__img" src="img/profile.jpg" alt="" />
+          <p class="my-profile__id">sookyung</p>
+        </div>
+        <div class="info__recommend">
+          <div class="recommend__text">
+            <p class="recommend__text__left">회원님을 위한 추천</p>
+            <p class="recommend__text__right">모두 보기</p>
+          </div>
+          <div class="recommend__people">
+            <div class="people">
+              <div class="people__profile">
+                <img
+                  class="people__profile__img"
+                  src="img/avatar1.png"
+                  alt=""
+                />
+                <div class="people__profile__text">
+                  <p class="text__id">yammy</p>
+                  <p class="text__reason">Instagram 신규가입</p>
+                </div>
+              </div>
+              <div class="people__follow">팔로우</div>
+            </div>
+            <div class="people">
+              <div class="people__profile">
+                <img
+                  class="people__profile__img"
+                  src="img/avatar2.png"
+                  alt=""
+                />
+                <div class="people__profile__text">
+                  <p class="text__id">dooly</p>
+                  <p class="text__reason">회원님을 팔로우 합니다.</p>
+                </div>
+              </div>
+              <div class="people__follow">팔로우</div>
+            </div>
+            <div class="people">
+              <div class="people__profile">
+                <img
+                  class="people__profile__img"
+                  src="img/avatar3.png"
+                  alt=""
+                />
+                <div class="people__profile__text">
+                  <p class="text__id">ddu</p>
+                  <p class="text__reason">zzang1님이 팔로우 합니다</p>
+                </div>
+              </div>
+              <div class="people__follow">팔로우</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </body>
 </html>
