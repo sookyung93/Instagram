@@ -125,6 +125,7 @@ input {
   position: absolute;
   font-size: 28px;
   color: var(--color-white);
+  z-index: 1;
 }
 
 .prev {

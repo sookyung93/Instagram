@@ -103,9 +103,10 @@ function createFeedHtmlString(feedUser) {
 
 function displayStroy(storyUsers) {
   const container = document.querySelector('.contents__story');
-  container.innerHTML = storyUsers
-    .map((storyUsers) => createStoryHtmlString(storyUsers))
-    .join('');
+  container.insertAdjacentHTML(
+    'beforeend',
+    storyUsers.map((storyUsers) => createStoryHtmlString(storyUsers)).join('')
+  );
 }
 
 function createStoryHtmlString(storyUsers) {
