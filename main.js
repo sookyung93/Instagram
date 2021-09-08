@@ -1,7 +1,6 @@
 'use strict';
 
 function loadUsers() {
-  console.log('hi');
   return fetch('data/data.json') //
     .then((response) => response.json())
     .then((json) => json.users);
@@ -110,10 +109,9 @@ function displayStroy(storyUsers) {
 }
 
 function createStoryHtmlString(storyUsers) {
-  console.log(storyUsers);
   const story = storyUsers.story;
 
-  return `<img class="contents__story__profile" src="${storyUsers.profile__img}" alt="" />`;
+  return `<li><img class="contents__story__profile" src="${storyUsers.profile__img}" alt="" /></li>`;
 }
 
 function addMoreBtnEvent() {

@@ -39,6 +39,15 @@ input {
   background-color: transparent;
 }
 
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  list-style: none;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -103,14 +112,18 @@ input {
   background-color: greenyellow; /*삭제*/
 }
 
-.contents__story {
+.contents__story__box {
   background-color: aquamarine; /*삭제*/
   width: 100%;
   height: 100px;
   display: flex;
   align-items: center;
-  overflow: hidden;
   position: relative;
+}
+
+.contents__story {
+  display: flex;
+  overflow: hidden;
 }
 
 .contents__story__profile {
@@ -277,6 +290,7 @@ input {
 }
 
 .info {
+  display: none;
   width: 320px;
   height: 500px;
   background-color: bisque; /*삭제*/
