@@ -35,6 +35,46 @@
       "story": {
         "story__src": "img/fubao.png"
       }
+    },
+    {
+      "num": 3,
+      "profile__img": "img/zzang3.jpg",
+      "profile__name": "zzang3",
+      "story": {
+        "story__src": "img/fubao.png"
+      }
+    },
+    {
+      "num": 4,
+      "profile__img": "img/princess1.png",
+      "profile__name": "princess1",
+      "story": {
+        "story__src": "img/fubao.png"
+      }
+    },
+    {
+      "num": 5,
+      "profile__img": "img/princess2.png",
+      "profile__name": "princess2",
+      "story": {
+        "story__src": "img/fubao.png"
+      }
+    },
+    {
+      "num": 6,
+      "profile__img": "img/princess3.jpg",
+      "profile__name": "princess3",
+      "story": {
+        "story__src": "img/fubao.png"
+      }
+    },
+    {
+      "num": 7,
+      "profile__img": "img/princess4.jpg",
+      "profile__name": "princess4",
+      "story": {
+        "story__src": "img/fubao.png"
+      }
     }
   ]
 }

@@ -7,15 +7,21 @@ function loadUsers() {
     .then((json) => json.users);
 }
 
-function displayFeeds(users) {
+function displayInfo(users) {
   const feedUsers = users.filter((user) => user.feed);
+  displayFeeds(feedUsers);
+  const storyUsers = users.filter((user) => user.story);
+  displayStroy(storyUsers);
+}
+
+function displayFeeds(feedUsers) {
   const container = document.querySelector('.contents__feed');
   container.innerHTML = feedUsers
-    .map((feedUser) => createHtmlString(feedUser))
+    .map((feedUser) => createFeedHtmlString(feedUser))
     .join('');
 }
 
-function createHtmlString(feedUser) {
+function createFeedHtmlString(feedUser) {
   const feed = feedUser.feed;
   const text = feed.comment__text;
   let textHTMl;
@@ -95,6 +101,20 @@ function createHtmlString(feedUser) {
   </article>`;
 }
 
+function displayStroy(storyUsers) {
+  const container = document.querySelector('.contents__story');
+  container.innerHTML = storyUsers
+    .map((storyUsers) => createStoryHtmlString(storyUsers))
+    .join('');
+}
+
+function createStoryHtmlString(storyUsers) {
+  console.log(storyUsers);
+  const story = storyUsers.story;
+
+  return `<img class="contents__story__profile" src="${storyUsers.profile__img}" alt="" />`;
+}
+
 function addMoreBtnEvent() {
   const btn = document.querySelectorAll('.btn__more');
   for (let i = 0; i < btn.length; i++) {
@@ -110,7 +130,7 @@ function addMoreBtnEvent() {
 
 loadUsers()
   .then((users) => {
-    displayFeeds(users);
+    displayInfo(users);
     addMoreBtnEvent();
   })
   .catch(console.log);
