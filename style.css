@@ -118,6 +118,7 @@ input {
   height: var(--profile-image-big-size);
   border-radius: 50%;
   margin-left: 20px;
+  cursor: pointer;
 }
 
 .contents__story__button {

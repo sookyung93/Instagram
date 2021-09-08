@@ -1,18 +1,22 @@
 'use strict';
 
-function loadFeed() {
+function loadUsers() {
   console.log('hi');
   return fetch('data/data.json') //
     .then((response) => response.json())
-    .then((json) => json.feeds);
+    .then((json) => json.users);
 }
 
-function displayFeeds(feeds) {
+function displayFeeds(users) {
+  const feedUsers = users.filter((user) => user.feed);
   const container = document.querySelector('.contents__feed');
-  container.innerHTML = feeds.map((feed) => createHtmlString(feed)).join('');
+  container.innerHTML = feedUsers
+    .map((feedUser) => createHtmlString(feedUser))
+    .join('');
 }
 
-function createHtmlString(feed) {
+function createHtmlString(feedUser) {
+  const feed = feedUser.feed;
   const text = feed.comment__text;
   let textHTMl;
   if (text.length > 1) {
@@ -20,8 +24,8 @@ function createHtmlString(feed) {
     for (let i = 1; i < text.length; i++) {
       hiddenText += `<br/>${text[i]}`;
     }
-    textHTMl = `${text[0]}<span class="comment__text hidden" id="btn__text${feed.num}">${hiddenText}</span
-    ><span class="btn__more btn__more${feed.num}" data-key="${feed.num}">... 더보기<span>`;
+    textHTMl = `${text[0]}<span class="comment__text hidden" id="btn__text${feedUser.num}">${hiddenText}</span
+    ><span class="btn__more btn__more${feedUser.num}" data-key="${feedUser.num}">... 더보기<span>`;
   } else {
     textHTMl = text;
   }
@@ -29,8 +33,8 @@ function createHtmlString(feed) {
   return `<article class="contents__feed__card">
     <div class="card__info">
       <div class="card__info__profile">
-        <img class="profile__img" src="${feed.profile__img}" alt="" />
-        <p href="" class="profile__name">${feed.profile__name}</p>
+        <img class="profile__img" src="${feedUser.profile__img}" alt="" />
+        <p href="" class="profile__name">${feedUser.profile__name}</p>
       </div>
       <i class="card__info__more-btn fas fa-ellipsis-h"></i>
     </div>
@@ -104,9 +108,9 @@ function addMoreBtnEvent() {
   }
 }
 
-loadFeed()
-  .then((feeds) => {
-    displayFeeds(feeds);
+loadUsers()
+  .then((users) => {
+    displayFeeds(users);
     addMoreBtnEvent();
   })
   .catch(console.log);
