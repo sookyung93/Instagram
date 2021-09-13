@@ -102,16 +102,45 @@ function createFeedHtmlString(feedUser) {
 
 function displayStroy(storyUsers) {
   const container = document.querySelector('.contents__story');
-  container.insertAdjacentHTML(
-    'beforeend',
-    storyUsers.map((storyUsers) => createStoryHtmlString(storyUsers)).join('')
-  );
+  container.innerHTML = storyUsers
+    .map((storyUsers) => createStoryHtmlString(storyUsers))
+    .join('');
+  addStoryBtnEvent();
 }
 
 function createStoryHtmlString(storyUsers) {
   const story = storyUsers.story;
 
   return `<li><img class="contents__story__profile" src="${storyUsers.profile__img}" alt="" /></li>`;
+}
+
+function addStoryBtnEvent() {
+  const netxBtn = document.querySelector('.next');
+  const prevBtn = document.querySelector('.prev');
+
+  const moveStory = (e) => {
+    let position = 0;
+    const storyProfileWidth = document
+      .querySelector('.contents__story__profile')
+      .getBoundingClientRect().width;
+    const story = document.querySelector('.contents__story');
+    let storyOffsetWidth = document.querySelector(
+      '.contents__story__box'
+    ).offsetWidth;
+    const slideScrollWidth = document.querySelector(
+      '.contents__story__box'
+    ).scrollWidth;
+    const initalOffestWidth = storyOffsetWidth;
+
+    position += storyProfileWidth;
+    storyOffsetWidth += storyProfileWidth;
+    story.style.transition = 'transform 1s';
+    story.style.transform = `translateX(-${position}px)`;
+
+    const direction = e.target.dataset.key;
+  };
+
+  netxBtn.addEventListener('click', (event) => moveStory(event));
 }
 
 function addMoreBtnEvent() {

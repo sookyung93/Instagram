@@ -119,11 +119,11 @@ li {
   display: flex;
   align-items: center;
   position: relative;
+  overflow: hidden;
 }
 
 .contents__story {
   display: flex;
-  overflow: hidden;
 }
 
 .contents__story__profile {
