@@ -105,6 +105,7 @@ function displayStroy(storyUsers) {
   container.innerHTML = storyUsers
     .map((storyUsers) => createStoryHtmlString(storyUsers))
     .join('');
+
   addStoryBtnEvent();
 }
 
@@ -118,29 +119,58 @@ function addStoryBtnEvent() {
   const netxBtn = document.querySelector('.next');
   const prevBtn = document.querySelector('.prev');
 
+  const btns = document.querySelectorAll('.contents__story__button');
+
+  let position = 0;
+  const storyProfileWidth = document
+    .querySelector('.contents__story__profile')
+    .getBoundingClientRect().width;
+  const story = document.querySelector('.contents__story');
+  let storyOffsetWidth = document.querySelector(
+    '.contents__story__box'
+  ).offsetWidth;
+  const storyScrollWidth = document.querySelector(
+    '.contents__story__box'
+  ).scrollWidth;
+  const setUpOffsetWidth = storyOffsetWidth;
+
+  let margin = window.getComputedStyle(
+    document.querySelector('.contents__story__profile')
+  ).marginLeft;
+
+  margin = parseInt(margin.slice(0, margin.length - 2));
+
   const moveStory = (e) => {
-    let position = 0;
-    const storyProfileWidth = document
-      .querySelector('.contents__story__profile')
-      .getBoundingClientRect().width;
-    const story = document.querySelector('.contents__story');
-    let storyOffsetWidth = document.querySelector(
-      '.contents__story__box'
-    ).offsetWidth;
-    const slideScrollWidth = document.querySelector(
-      '.contents__story__box'
-    ).scrollWidth;
-    const initalOffestWidth = storyOffsetWidth;
-
-    position += storyProfileWidth;
-    storyOffsetWidth += storyProfileWidth;
-    story.style.transition = 'transform 1s';
-    story.style.transform = `translateX(-${position}px)`;
-
     const direction = e.target.dataset.key;
+
+    if (direction === 'next') {
+      position += margin + storyProfileWidth;
+      prevBtn.classList.remove('hidden');
+      if (storyOffsetWidth < storyScrollWidth) {
+        storyOffsetWidth += margin + storyProfileWidth;
+        story.style.transition = 'transform 0.7s';
+        story.style.transform = `translateX(-${position}px)`;
+        if (storyOffsetWidth >= storyScrollWidth) {
+          netxBtn.classList.add('hidden');
+        }
+      }
+    } else {
+      position -= margin + storyProfileWidth;
+      netxBtn.classList.remove('hidden');
+      if (storyOffsetWidth > setUpOffsetWidth) {
+        storyOffsetWidth -= margin + storyProfileWidth;
+        story.style.transition = 'transform 0.7s';
+        story.style.transform = `translateX(-${position}px)`;
+        if (storyOffsetWidth <= setUpOffsetWidth) {
+          prevBtn.classList.add('hidden');
+        }
+      }
+    }
   };
 
-  netxBtn.addEventListener('click', (event) => moveStory(event));
+  for (let btn of btns) {
+    btn.addEventListener('click', (event) => moveStory(event));
+  }
 }
 
 function addMoreBtnEvent() {

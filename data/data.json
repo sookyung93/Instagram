@@ -75,6 +75,38 @@
       "story": {
         "story__src": "img/fubao.png"
       }
+    },
+    {
+      "num": 8,
+      "profile__img": "img/apeach1.jfif",
+      "profile__name": "apeach1",
+      "story": {
+        "story__src": "img/fubao.png"
+      }
+    },
+    {
+      "num": 9,
+      "profile__img": "img/apeach2.jfif",
+      "profile__name": "apeach2",
+      "story": {
+        "story__src": "img/fubao.png"
+      }
+    },
+    {
+      "num": 10,
+      "profile__img": "img/apeach3.jfif",
+      "profile__name": "apeach3",
+      "story": {
+        "story__src": "img/fubao.png"
+      }
+    },
+    {
+      "num": 11,
+      "profile__img": "img/apeach4.jfif",
+      "profile__name": "apeach4",
+      "story": {
+        "story__src": "img/fubao.png"
+      }
     }
   ]
 }
