@@ -105,8 +105,6 @@ function displayStroy(storyUsers) {
   container.innerHTML = storyUsers
     .map((storyUsers) => createStoryHtmlString(storyUsers))
     .join('');
-
-  addStoryBtnEvent();
 }
 
 function createStoryHtmlString(storyUsers) {
@@ -159,6 +157,7 @@ function addStoryBtnEvent() {
       netxBtn.classList.remove('hidden');
       if (storyOffsetWidth > setUpOffsetWidth) {
         storyOffsetWidth -= margin + storyProfileWidth;
+        console.log(position);
         story.style.transition = 'transform 0.7s';
         story.style.transform = `translateX(-${position}px)`;
         if (storyOffsetWidth <= setUpOffsetWidth) {
@@ -186,9 +185,15 @@ function addMoreBtnEvent() {
   }
 }
 
+function addBtnEvent() {
+  addMoreBtnEvent();
+  addStoryBtnEvent();
+}
+
 loadUsers()
   .then((users) => {
     displayInfo(users);
-    addMoreBtnEvent();
+    // addMoreBtnEvent();
+    addBtnEvent();
   })
   .catch(console.log);
