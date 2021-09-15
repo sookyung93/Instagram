@@ -23,6 +23,7 @@ body {
 button {
   background-color: transparent;
   border: none;
+  cursor: pointer;
 }
 
 p {
@@ -206,10 +207,6 @@ li {
 .icon__share,
 .icon__bookmark {
   font-size: 32px;
-}
-
-.icon__heart.full {
-  display: none;
 }
 
 .icons__middle {

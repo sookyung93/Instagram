@@ -48,12 +48,13 @@ function createFeedHtmlString(feedUser) {
     </div>
     <div class="card__icons">
       <div class="icons__left">
-        <i class="icon__heart far fa-heart"></i>
-        <i class="icon__heart full fas fa-heart"></i>
-        <i class="icon__comment far fa-comment"></i>
-        <i class="icon__share far fa-paper-plane"></i>
+        <button class="feed_icon icon__heart far fa-heart" data-shape="heart" data-detail="empty__heart"></button>
+        <button class="feed_icon icon__heart full hidden fas fa-heart" data-shape="heart" data-detail="full__heart"></button>
+        <button class="feed_icon icon__comment far fa-comment" data-shape="comment"></button>
+        <button class="feed_icon icon__share far fa-paper-plane" data-shape="plane"></button>
       </div>
-      <i class="icon__bookmark far fa-bookmark"></i>
+      <button class="feed_icon icon__bookmark far fa-bookmark" data-shape="bookmark" data-detail="empty__bookmark"></button>
+      <button class="feed_icon icon__bookmark full hidden fas fa-bookmark" data-shape="bookmark" data-detail="full__bookmark"></button>
       <div class="icons__middle">
         <i class="icon__dote fas fa-circle"></i>
       </div>
@@ -185,15 +186,39 @@ function addMoreBtnEvent() {
   }
 }
 
+function feedBtnEvent() {
+  const btns = document.querySelectorAll('.feed_icon');
+
+  for (let btn of btns) {
+    btn.addEventListener('click', function (event) {
+      const btnTarget = event.target;
+      const shape = btnTarget.dataset.shape;
+      const detail = btnTarget.dataset.detail;
+
+      switch (shape) {
+        case 'heart':
+        case 'bookmark':
+          const apearBtn =
+            detail === `empty__${shape}` ? `full__${shape}` : `empty__${shape}`;
+          btnTarget.classList.add('hidden');
+          document
+            .querySelector(`[data-detail="${apearBtn}"]`)
+            .classList.remove('hidden');
+          break;
+      }
+    });
+  }
+}
+
 function addBtnEvent() {
   addMoreBtnEvent();
   addStoryBtnEvent();
+  feedBtnEvent();
 }
 
 loadUsers()
   .then((users) => {
     displayInfo(users);
-    // addMoreBtnEvent();
     addBtnEvent();
   })
   .catch(console.log);
