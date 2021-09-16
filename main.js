@@ -24,17 +24,25 @@ function createFeedHtmlString(feedUser) {
   const feed = feedUser.feed;
   const photos = feed.card__photo;
   let imgHtml = '';
-  let buttonHtml = '';
+  let doteBtnHtml = '';
+  let arrowBtnHtml = '';
   if (photos.length >= 2) {
+    arrowBtnHtml = `<div class="feed__btn__box">
+      <button class="feed__button prev">
+        <i class="fas fa-arrow-circle-left" data-key="prev"></i>
+      </button>
+      <button class="feed__button next">
+        <i class="fas fa-arrow-circle-right" data-key="next"></i>
+      </button>
+    </div>`;
     for (let i = 0; i < photos.length; i++) {
       const photo = photos[i];
       imgHtml += `<div class="card__photo__inner" style="width:100%"> <img src="${photo}" alt="" /> </div>`;
-      buttonHtml += `<button class="icon__dote fas fa-circle" data-feednum=${feedUser.num} data-dotenum=${i}></button>`;
+      doteBtnHtml += `<button class="icon__dote fas fa-circle" data-feednum=${feedUser.num} data-dotenum=${i}></button>`;
     }
   } else {
     imgHtml = `<div class="card__photo__inner" style="width:100%"> <img src="${photos[0]}" alt=""/> </div>`;
   }
-
   const text = feed.comment__text;
   let textHTMl;
   if (text.length > 1) {
@@ -57,8 +65,9 @@ function createFeedHtmlString(feedUser) {
       <i class="card__info__more-btn fas fa-ellipsis-h"></i>
     </div>
     <div class="card__photo__container">
-      <div class="card__photo card${feedUser.num}"  style="width: ${feed.card__photo.length}00%">
-        ${imgHtml}
+      <div class="card__photo card${feedUser.num}"  style="width: ${feed.card__photo.length}00%">      
+      ${arrowBtnHtml}
+      ${imgHtml}
       </div>
     </div>
     <div class="card__icons">
@@ -71,7 +80,7 @@ function createFeedHtmlString(feedUser) {
       <button class="feed_icon icon__bookmark far fa-bookmark" data-shape="bookmark" data-detail="empty__bookmark"></button>
       <button class="feed_icon icon__bookmark full hidden fas fa-bookmark" data-shape="bookmark" data-detail="full__bookmark"></button>
       <div class="icons__middle">
-        ${buttonHtml}  
+        ${doteBtnHtml}  
       </div>
     </div>
     <div class="card__bottom">
@@ -245,6 +254,7 @@ function addBtnEvent() {
   addStoryBtnEvent();
   feedBtnEvent();
   feedDoteEvent();
+  // feedArrowBtnEvent();
 }
 
 loadUsers()

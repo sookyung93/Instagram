@@ -13,6 +13,7 @@
   --card-padding: 12px;
   --profile-image-big-size: 80px;
   --profile-image-small-size: 40px;
+  --contents-width: 614px;
 
   /*Animation*/
   --animation-duration: 0.7s;
@@ -112,7 +113,7 @@ li {
 }
 
 .contents {
-  width: 614px;
+  width: var(--contents-width);
   background-color: greenyellow; /*삭제*/
 }
 
@@ -198,6 +199,21 @@ li {
   display: flex;
   overflow: hidden;
   transition: var(--animation-duration);
+  position: relative;
+}
+
+.feed__btn__box {
+  position: absolute;
+  width: var(--contents-width);
+  display: flex;
+  justify-content: space-between;
+  bottom: 50%;
+}
+
+.feed__button {
+  color: var(--color-white);
+  opacity: 50%;
+  font-size: 30px;
 }
 
 .card__photo img {
