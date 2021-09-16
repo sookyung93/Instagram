@@ -13,6 +13,9 @@
   --card-padding: 12px;
   --profile-image-big-size: 80px;
   --profile-image-small-size: 40px;
+
+  /*Animation*/
+  --animation-duration: 0.7s;
 }
 
 body {
@@ -186,8 +189,15 @@ li {
   line-height: 40px;
 }
 
+.card__photo__container {
+  overflow: hidden;
+}
+
 .card__photo {
   width: 100%;
+  display: flex;
+  overflow: hidden;
+  transition: var(--animation-duration);
 }
 
 .card__photo img {

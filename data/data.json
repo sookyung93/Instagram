@@ -5,7 +5,7 @@
       "profile__img": "img/zzang1.jpg",
       "profile__name": "zzang1",
       "feed": {
-        "card__photo": "img/gunhoo1.jpg",
+        "card__photo": ["img/gunhoo1.jpg"],
         "bottom__like__id": "zzang2",
         "comment__text": ["건후 귀요미", "#건후 볼 통통!", "#박건후 #슈돌"],
         "reply": [
@@ -23,7 +23,11 @@
       "profile__img": "img/zzang2.jpg",
       "profile__name": "zzang2",
       "feed": {
-        "card__photo": "img/gunhoo2.jpg",
+        "card__photo": [
+          "img/gunhoo2.jpg",
+          "img/gunhoo3.jpg",
+          "img/gunhoo4.jpg"
+        ],
         "bottom__like__id": "zzang3",
         "comment__text": ["건후 귀요미", "#건후 볼 통통!", "#박건후 #슈돌"],
         "reply": [

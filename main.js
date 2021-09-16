@@ -22,6 +22,15 @@ function displayFeeds(feedUsers) {
 
 function createFeedHtmlString(feedUser) {
   const feed = feedUser.feed;
+  let imgHtml = '';
+  if (feed.card__photo.length >= 2) {
+    for (let photo of feed.card__photo) {
+      imgHtml += `<div class="card__photo__inner" style="width:100%"> <img src="${photo}" alt="" /> </div>`;
+    }
+  } else {
+    imgHtml = `<div class="card__photo__inner" style="width:100%"> <img src="${feed.card__photo[0]}" alt=""/> </div>`;
+  }
+
   const text = feed.comment__text;
   let textHTMl;
   if (text.length > 1) {
@@ -43,8 +52,10 @@ function createFeedHtmlString(feedUser) {
       </div>
       <i class="card__info__more-btn fas fa-ellipsis-h"></i>
     </div>
-    <div class="card__photo">
-      <img src="${feed.card__photo}" alt="" />
+    <div class="card__photo__container">
+      <div class="card__photo card${feedUser.num}"  style="width: ${feed.card__photo.length}00%">
+        ${imgHtml}
+      </div>
     </div>
     <div class="card__icons">
       <div class="icons__left">
@@ -56,7 +67,7 @@ function createFeedHtmlString(feedUser) {
       <button class="feed_icon icon__bookmark far fa-bookmark" data-shape="bookmark" data-detail="empty__bookmark"></button>
       <button class="feed_icon icon__bookmark full hidden fas fa-bookmark" data-shape="bookmark" data-detail="full__bookmark"></button>
       <div class="icons__middle">
-        <i class="icon__dote fas fa-circle"></i>
+        <button class="icon__dote fas fa-circle" data-dotenum=${feedUser.num}></button>
       </div>
     </div>
     <div class="card__bottom">
@@ -210,10 +221,30 @@ function feedBtnEvent() {
   }
 }
 
+function feedDoteEvent() {
+  const dotes = document.querySelectorAll('.icon__dote');
+  console.log('data - num');
+  // const photoWidth = document.querySelector(
+  //   '.contents__story__box'
+  // ).offsetWidth;
+  const photoWidth = document.querySelector('.card__photo__inner').offsetWidth;
+  console.log(photoWidth);
+
+  for (let dote of dotes) {
+    dote.addEventListener('click', function (event) {
+      const feedNum = event.target.dataset.dotenum;
+      console.log(feedNum);
+      const photos = document.querySelector(`.card${feedNum}`);
+      photos.style.transform = `translateX(-${photoWidth}px)`;
+    });
+  }
+}
+
 function addBtnEvent() {
   addMoreBtnEvent();
   addStoryBtnEvent();
   feedBtnEvent();
+  feedDoteEvent();
 }
 
 loadUsers()
