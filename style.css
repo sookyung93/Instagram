@@ -221,7 +221,8 @@ li {
 
 .icons__middle {
   position: absolute;
-  right: 50%;
+  left: 50%;
+  transform: translateX(-50%);
   height: 32px;
 }
 

@@ -22,13 +22,17 @@ function displayFeeds(feedUsers) {
 
 function createFeedHtmlString(feedUser) {
   const feed = feedUser.feed;
+  const photos = feed.card__photo;
   let imgHtml = '';
-  if (feed.card__photo.length >= 2) {
-    for (let photo of feed.card__photo) {
+  let buttonHtml = '';
+  if (photos.length >= 2) {
+    for (let i = 0; i < photos.length; i++) {
+      const photo = photos[i];
       imgHtml += `<div class="card__photo__inner" style="width:100%"> <img src="${photo}" alt="" /> </div>`;
+      buttonHtml += `<button class="icon__dote fas fa-circle" data-feednum=${feedUser.num} data-dotenum=${i}></button>`;
     }
   } else {
-    imgHtml = `<div class="card__photo__inner" style="width:100%"> <img src="${feed.card__photo[0]}" alt=""/> </div>`;
+    imgHtml = `<div class="card__photo__inner" style="width:100%"> <img src="${photos[0]}" alt=""/> </div>`;
   }
 
   const text = feed.comment__text;
@@ -67,7 +71,7 @@ function createFeedHtmlString(feedUser) {
       <button class="feed_icon icon__bookmark far fa-bookmark" data-shape="bookmark" data-detail="empty__bookmark"></button>
       <button class="feed_icon icon__bookmark full hidden fas fa-bookmark" data-shape="bookmark" data-detail="full__bookmark"></button>
       <div class="icons__middle">
-        <button class="icon__dote fas fa-circle" data-dotenum=${feedUser.num}></button>
+        ${buttonHtml}  
       </div>
     </div>
     <div class="card__bottom">
@@ -223,19 +227,15 @@ function feedBtnEvent() {
 
 function feedDoteEvent() {
   const dotes = document.querySelectorAll('.icon__dote');
-  console.log('data - num');
-  // const photoWidth = document.querySelector(
-  //   '.contents__story__box'
-  // ).offsetWidth;
   const photoWidth = document.querySelector('.card__photo__inner').offsetWidth;
-  console.log(photoWidth);
 
   for (let dote of dotes) {
     dote.addEventListener('click', function (event) {
-      const feedNum = event.target.dataset.dotenum;
-      console.log(feedNum);
+      const feedNum = event.target.dataset.feednum;
       const photos = document.querySelector(`.card${feedNum}`);
-      photos.style.transform = `translateX(-${photoWidth}px)`;
+      const dotenum = event.target.dataset.dotenum;
+      const position = parseInt(photoWidth) * parseInt(dotenum);
+      photos.style.transform = `translateX(-${position}px)`;
     });
   }
 }
