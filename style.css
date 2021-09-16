@@ -143,6 +143,7 @@ li {
   position: absolute;
   font-size: 28px;
   color: var(--color-white);
+  opacity: 50%;
   z-index: 1;
 }
 
