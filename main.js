@@ -27,8 +27,8 @@ function createFeedHtmlString(feedUser) {
   let doteBtnHtml = '';
   let arrowBtnHtml = '';
   if (photos.length >= 2) {
-    arrowBtnHtml = `<div class="feed__btn__box">
-      <button class="feed__button prev">
+    arrowBtnHtml = `<div class="feed__arrow-btn__box right">
+      <button class="feed__button hidden prev">
         <i class="fas fa-arrow-circle-left" data-key="prev"></i>
       </button>
       <button class="feed__button next">
@@ -234,26 +234,10 @@ function feedBtnEvent() {
   }
 }
 
-function feedDoteEvent() {
-  const dotes = document.querySelectorAll('.icon__dote');
-  const photoWidth = document.querySelector('.card__photo__inner').offsetWidth;
-
-  for (let dote of dotes) {
-    dote.addEventListener('click', function (event) {
-      const feedNum = event.target.dataset.feednum;
-      const photos = document.querySelector(`.card${feedNum}`);
-      const dotenum = event.target.dataset.dotenum;
-      const position = parseInt(photoWidth) * parseInt(dotenum);
-      photos.style.transform = `translateX(-${position}px)`;
-    });
-  }
-}
-
 function addBtnEvent() {
   addMoreBtnEvent();
   addStoryBtnEvent();
   feedBtnEvent();
-  feedDoteEvent();
   // feedArrowBtnEvent();
 }
 

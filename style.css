@@ -57,6 +57,10 @@ li {
   box-sizing: border-box;
 }
 
+.hidden {
+  display: none;
+}
+
 .navbar {
   background-color: yellow; /*삭제*/
   display: flex;
@@ -203,12 +207,20 @@ li {
   position: relative;
 }
 
-.feed__btn__box {
+.feed__arrow-btn__box {
   position: absolute;
   width: var(--contents-width);
   display: flex;
   justify-content: space-between;
   bottom: 50%;
+}
+
+.feed__arrow-btn__box.right {
+  justify-content: right;
+}
+
+.feed__arrow-btn__box.left {
+  justify-content: left;
 }
 
 .feed__button {
@@ -258,10 +270,6 @@ li {
 .bottom__like__id,
 .bottom__like__count {
   font-weight: 600;
-}
-
-.hidden {
-  display: none;
 }
 
 .btn__more {
