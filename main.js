@@ -27,18 +27,18 @@ function createFeedHtmlString(feedUser) {
   let doteBtnHtml = '';
   let arrowBtnHtml = '';
   if (photos.length >= 2) {
-    arrowBtnHtml = `<div class="feed__arrow-btn__box right">
-      <button class="feed__button hidden prev">
-        <i class="fas fa-arrow-circle-left" data-key="prev"></i>
+    arrowBtnHtml = `<div class="feed__arrow-btn__box right feed__btn__box__${feedUser.num}">
+      <button class="feed__arrow-button hidden feed__prev feed__prev__btn__${feedUser.num}">
+        <i class="fas fa-arrow-circle-left feed_prev_icon__${feedUser.num}" data-key="prev" data-num="${feedUser.num}"></i>
       </button>
-      <button class="feed__button next">
-        <i class="fas fa-arrow-circle-right" data-key="next"></i>
+      <button class="feed__arrow-button feed__next feed__next__btn__${feedUser.num}">
+        <i class="fas fa-arrow-circle-right feed__next__icon__${feedUser.num}" data-key="next" data-num="${feedUser.num}"></i>
       </button>
     </div>`;
     for (let i = 0; i < photos.length; i++) {
       const photo = photos[i];
-      imgHtml += `<div class="card__photo__inner" style="width:100%"> <img src="${photo}" alt="" /> </div>`;
-      doteBtnHtml += `<button class="icon__dote fas fa-circle" data-feednum=${feedUser.num} data-dotenum=${i}></button>`;
+      imgHtml += `<div class="card__photo__inner" style="width:100%" data-photoNum="${i}"> <img src="${photo}" alt="" /> </div>`;
+      doteBtnHtml += `<button class="icon__dote fas fa-circle" data-dote_btn="${feedUser.num}" data-dotenum="${i}"></button>`;
     }
   } else {
     imgHtml = `<div class="card__photo__inner" style="width:100%"> <img src="${photos[0]}" alt=""/> </div>`;
@@ -55,7 +55,6 @@ function createFeedHtmlString(feedUser) {
   } else {
     textHTMl = text;
   }
-
   return `<article class="contents__feed__card">
     <div class="card__info">
       <div class="card__info__profile">
@@ -64,21 +63,43 @@ function createFeedHtmlString(feedUser) {
       </div>
       <i class="card__info__more-btn fas fa-ellipsis-h"></i>
     </div>
-    <div class="card__photo__container">
-      <div class="card__photo card${feedUser.num}"  style="width: ${feed.card__photo.length}00%">      
-      ${arrowBtnHtml}
+    <div class="card__photo__container" data-container="${feedUser.num}">     
+    ${arrowBtnHtml}
+      <div class="card__photo card__photo__${feedUser.num}" data-length="${feed.card__photo.length}" style="width: ${feed.card__photo.length}00%"> 
       ${imgHtml}
       </div>
     </div>
     <div class="card__icons">
       <div class="icons__left">
-        <button class="feed_icon icon__heart far fa-heart" data-shape="heart" data-detail="empty__heart"></button>
-        <button class="feed_icon icon__heart full hidden fas fa-heart" data-shape="heart" data-detail="full__heart"></button>
-        <button class="feed_icon icon__comment far fa-comment" data-shape="comment"></button>
-        <button class="feed_icon icon__share far fa-paper-plane" data-shape="plane"></button>
+      <button
+      class="feed_icon icon__heart far fa-heart"
+      data-shape="heart"
+      data-detail="empty__heart"
+    ></button>
+    <button
+      class="feed_icon icon__heart full hidden fas fa-heart"
+      data-shape="heart"
+      data-detail="full__heart"
+    ></button>
+    <button
+      class="feed_icon icon__comment far fa-comment"
+      data-shape="comment"
+    ></button>
+    <button
+      class="feed_icon icon__share far fa-paper-plane"
+      data-shape="plane"
+    ></button>
       </div>
-      <button class="feed_icon icon__bookmark far fa-bookmark" data-shape="bookmark" data-detail="empty__bookmark"></button>
-      <button class="feed_icon icon__bookmark full hidden fas fa-bookmark" data-shape="bookmark" data-detail="full__bookmark"></button>
+      <button
+      class="feed_icon icon__bookmark far fa-bookmark"
+      data-shape="bookmark"
+      data-detail="empty__bookmark"
+    ></button>
+    <button
+      class="feed_icon icon__bookmark full hidden fas fa-bookmark"
+      data-shape="bookmark"
+      data-detail="full__bookmark"
+    ></button>
       <div class="icons__middle">
         ${doteBtnHtml}  
       </div>
@@ -136,6 +157,48 @@ function createStoryHtmlString(storyUsers) {
   const story = storyUsers.story;
 
   return `<li><img class="contents__story__profile" src="${storyUsers.profile__img}" alt="" /></li>`;
+}
+
+const feedBtnMap = new Map();
+function feedArrowBtnEvent() {
+  const btns = document.querySelectorAll('.feed__arrow-button');
+  let feedOrder = 1;
+
+  const moveFeed = (event) => {
+    console.log('hi');
+    const direction = event.target.dataset.key;
+    const feedNum = event.target.dataset.num;
+    const feedBtnBox = document.querySelector(`.feed__btn__box__${feedNum}`);
+    const prevBtn = document.querySelector(`.feed__prev__btn__${feedNum}`);
+    const netxBtn = document.querySelector(`.feed__next__btn__${feedNum}`);
+
+    console.log(feedBtnMap.has(feedNum));
+    if (!feedBtnMap.has(feedNum)) {
+      feedBtnMap.set(feedNum, feedOrder);
+    }
+    feedOrder = feedBtnMap.get(feedNum);
+    feedBtnBox.classList.remove('right');
+    prevBtn.classList.remove('hidden');
+    const photoWidth = document.querySelector(
+      '.card__photo__inner'
+    ).offsetWidth;
+    console.log(photoWidth);
+
+    if (direction === 'next') {
+      const photos = document.querySelector(`.card__photo__${feedNum}`);
+      const total = parseInt(photos.dataset.length);
+      const position = feedOrder * parseInt(photoWidth);
+      photos.style.transform = `translateX(-${position}px)`;
+      feedBtnMap.set(feedNum, feedOrder + 1);
+      if (parseInt(total) === feedOrder + 1) {
+        netxBtn.classList.add('hidden');
+      }
+    }
+  };
+
+  for (let btn of btns) {
+    btn.addEventListener('click', (event) => moveFeed(event));
+  }
 }
 
 function addStoryBtnEvent() {
@@ -238,7 +301,7 @@ function addBtnEvent() {
   addMoreBtnEvent();
   addStoryBtnEvent();
   feedBtnEvent();
-  // feedArrowBtnEvent();
+  feedArrowBtnEvent();
 }
 
 loadUsers()

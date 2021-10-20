@@ -111,6 +111,28 @@
       "story": {
         "story__src": "img/fubao.png"
       }
+    },
+    {
+      "num": 12,
+      "profile__img": "img/zzang3.jpg",
+      "profile__name": "zzang3",
+      "feed": {
+        "card__photo": [
+          "img/gunhoo4.jpg",
+          "img/gunhoo5.jpg",
+          "img/gunhoo6.jpg"
+        ],
+        "bottom__like__id": "zzang3",
+        "comment__text": ["건후 귀요미", "#건후 볼 통통!", "#박건후 #슈돌"],
+        "reply": [
+          ["zzang2", "귀여워2"],
+          ["zzang3", "귀여워3"],
+          ["zzang4", "귀여워4"]
+        ]
+      },
+      "story": {
+        "story__src": "img/fubao.png"
+      }
     }
   ]
 }

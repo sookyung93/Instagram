@@ -200,7 +200,6 @@ li {
 }
 
 .card__photo {
-  width: 100%;
   display: flex;
   overflow: hidden;
   transition: var(--animation-duration);
@@ -213,6 +212,7 @@ li {
   display: flex;
   justify-content: space-between;
   bottom: 50%;
+  z-index: 1;
 }
 
 .feed__arrow-btn__box.right {
@@ -223,7 +223,7 @@ li {
   justify-content: left;
 }
 
-.feed__button {
+.feed__arrow-button {
   color: var(--color-white);
   opacity: 50%;
   font-size: 30px;
