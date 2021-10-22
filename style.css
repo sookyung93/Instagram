@@ -227,6 +227,11 @@ li {
   color: var(--color-white);
   opacity: 50%;
   font-size: 30px;
+  cursor: default;
+}
+
+.feed__arrow-button i {
+  cursor: pointer;
 }
 
 .card__photo img {

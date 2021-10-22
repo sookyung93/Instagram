@@ -165,33 +165,45 @@ function feedArrowBtnEvent() {
   let feedOrder = 1;
 
   const moveFeed = (event) => {
-    console.log('hi');
     const direction = event.target.dataset.key;
+    if (direction == null) {
+      return;
+    }
     const feedNum = event.target.dataset.num;
     const feedBtnBox = document.querySelector(`.feed__btn__box__${feedNum}`);
     const prevBtn = document.querySelector(`.feed__prev__btn__${feedNum}`);
-    const netxBtn = document.querySelector(`.feed__next__btn__${feedNum}`);
-
-    console.log(feedBtnMap.has(feedNum));
+    const nextBtn = document.querySelector(`.feed__next__btn__${feedNum}`);
     if (!feedBtnMap.has(feedNum)) {
       feedBtnMap.set(feedNum, feedOrder);
     }
     feedOrder = feedBtnMap.get(feedNum);
-    feedBtnBox.classList.remove('right');
-    prevBtn.classList.remove('hidden');
     const photoWidth = document.querySelector(
       '.card__photo__inner'
     ).offsetWidth;
-    console.log(photoWidth);
 
+    const photos = document.querySelector(`.card__photo__${feedNum}`);
+    const total = parseInt(photos.dataset.length);
     if (direction === 'next') {
-      const photos = document.querySelector(`.card__photo__${feedNum}`);
-      const total = parseInt(photos.dataset.length);
+      feedBtnBox.classList.remove('right');
+      prevBtn.classList.remove('hidden');
       const position = feedOrder * parseInt(photoWidth);
       photos.style.transform = `translateX(-${position}px)`;
       feedBtnMap.set(feedNum, feedOrder + 1);
       if (parseInt(total) === feedOrder + 1) {
-        netxBtn.classList.add('hidden');
+        nextBtn.classList.add('hidden');
+      }
+    } else {
+      if (feedOrder === total) {
+        nextBtn.classList.remove('hidden');
+      }
+      console.log('hi');
+      console.log(feedOrder);
+      const position = (feedOrder - 2) * parseInt(photoWidth);
+      photos.style.transform = `translateX(-${position}px)`;
+      feedBtnMap.set(feedNum, feedOrder - 1);
+      if (feedOrder - 1 === 1) {
+        prevBtn.classList.add('hidden');
+        feedBtnBox.classList.add('right');
       }
     }
   };
