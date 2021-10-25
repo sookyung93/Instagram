@@ -263,6 +263,11 @@ li {
 .icon__dote {
   font-size: 8px;
   line-height: 32px;
+  color: var(--color-gray);
+}
+
+.icon__dote__blue {
+  color: var(--color-blue);
 }
 
 .card__bottom {

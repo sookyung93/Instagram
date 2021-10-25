@@ -38,7 +38,7 @@ function createFeedHtmlString(feedUser) {
     for (let i = 0; i < photos.length; i++) {
       const photo = photos[i];
       imgHtml += `<div class="card__photo__inner" style="width:100%" data-photoNum="${i}"> <img src="${photo}" alt="" /> </div>`;
-      doteBtnHtml += `<button class="icon__dote fas fa-circle" data-dote_btn="${feedUser.num}" data-dotenum="${i}"></button>`;
+      doteBtnHtml += `<button class="icon__dote fas fa-circle dote__btn__${feedUser.num}-${i}"></button>`;
     }
   } else {
     imgHtml = `<div class="card__photo__inner" style="width:100%"> <img src="${photos[0]}" alt=""/> </div>`;
@@ -174,9 +174,9 @@ function feedArrowBtnEvent() {
     const prevBtn = document.querySelector(`.feed__prev__btn__${feedNum}`);
     const nextBtn = document.querySelector(`.feed__next__btn__${feedNum}`);
     if (!feedBtnMap.has(feedNum)) {
-      feedBtnMap.set(feedNum, feedOrder);
+      feedBtnMap.set(feedNum, { now: feedOrder, prev: 1 });
     }
-    feedOrder = feedBtnMap.get(feedNum);
+    feedOrder = feedBtnMap.get(feedNum).now;
     const photoWidth = document.querySelector(
       '.card__photo__inner'
     ).offsetWidth;
@@ -184,11 +184,16 @@ function feedArrowBtnEvent() {
     const photos = document.querySelector(`.card__photo__${feedNum}`);
     const total = parseInt(photos.dataset.length);
     if (direction === 'next') {
+      // const dote = document.querySelector(
+      //   `.dote__btn__${feedNum}-${feedOrder}`
+      // );
+
+      // dote.classList.add('icon__dote__blue');
       feedBtnBox.classList.remove('right');
       prevBtn.classList.remove('hidden');
       const position = feedOrder * parseInt(photoWidth);
       photos.style.transform = `translateX(-${position}px)`;
-      feedBtnMap.set(feedNum, feedOrder + 1);
+      feedBtnMap.set(feedNum, { now: feedOrder + 1, prev: feedOrder });
       if (parseInt(total) === feedOrder + 1) {
         nextBtn.classList.add('hidden');
       }
@@ -196,16 +201,28 @@ function feedArrowBtnEvent() {
       if (feedOrder === total) {
         nextBtn.classList.remove('hidden');
       }
-      console.log('hi');
-      console.log(feedOrder);
+      // const dote = document.querySelector(
+      //   `.dote__btn__${feedNum}-${feedOrder - 2}`
+      // );
+      // dote.classList.add('icon__dote__blue');
       const position = (feedOrder - 2) * parseInt(photoWidth);
       photos.style.transform = `translateX(-${position}px)`;
-      feedBtnMap.set(feedNum, feedOrder - 1);
+      feedBtnMap.set(feedNum, { now: feedOrder - 1, prev: feedOrder });
       if (feedOrder - 1 === 1) {
         prevBtn.classList.add('hidden');
         feedBtnBox.classList.add('right');
       }
     }
+
+    const order = feedBtnMap.get(feedNum);
+    const nowDote = document.querySelector(
+      `.dote__btn__${feedNum}-${order.now - 1}`
+    );
+    nowDote.classList.add('icon__dote__blue');
+    const prevDote = document.querySelector(
+      `.dote__btn__${feedNum}-${order.prev - 1}`
+    );
+    prevDote.classList.remove('icon__dote__blue');
   };
 
   for (let btn of btns) {
@@ -257,7 +274,6 @@ function addStoryBtnEvent() {
       netxBtn.classList.remove('hidden');
       if (storyOffsetWidth > setUpOffsetWidth) {
         storyOffsetWidth -= margin + storyProfileWidth;
-        console.log(position);
         story.style.transition = 'transform 0.7s';
         story.style.transform = `translateX(-${position}px)`;
         if (storyOffsetWidth <= setUpOffsetWidth) {
