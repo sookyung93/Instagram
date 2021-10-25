@@ -260,13 +260,13 @@ li {
   height: 32px;
 }
 
-.icon__dote {
+.icon__dot {
   font-size: 8px;
   line-height: 32px;
   color: var(--color-gray);
 }
 
-.icon__dote__blue {
+.icon__dot__blue {
   color: var(--color-blue);
 }
 

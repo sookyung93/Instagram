@@ -24,7 +24,7 @@ function createFeedHtmlString(feedUser) {
   const feed = feedUser.feed;
   const photos = feed.card__photo;
   let imgHtml = '';
-  let doteBtnHtml = '';
+  let dotBtnHtml = '';
   let arrowBtnHtml = '';
   if (photos.length >= 2) {
     arrowBtnHtml = `<div class="feed__arrow-btn__box right feed__btn__box__${feedUser.num}">
@@ -37,8 +37,12 @@ function createFeedHtmlString(feedUser) {
     </div>`;
     for (let i = 0; i < photos.length; i++) {
       const photo = photos[i];
+      if (i === 0) {
+        dotBtnHtml += `<button class="icon__dot fas fa-circle dot__btn__${feedUser.num}-${i} icon__dot__blue"></button>`;
+      } else {
+        dotBtnHtml += `<button class="icon__dot fas fa-circle dot__btn__${feedUser.num}-${i}"></button>`;
+      }
       imgHtml += `<div class="card__photo__inner" style="width:100%" data-photoNum="${i}"> <img src="${photo}" alt="" /> </div>`;
-      doteBtnHtml += `<button class="icon__dote fas fa-circle dote__btn__${feedUser.num}-${i}"></button>`;
     }
   } else {
     imgHtml = `<div class="card__photo__inner" style="width:100%"> <img src="${photos[0]}" alt=""/> </div>`;
@@ -101,7 +105,7 @@ function createFeedHtmlString(feedUser) {
       data-detail="full__bookmark"
     ></button>
       <div class="icons__middle">
-        ${doteBtnHtml}  
+        ${dotBtnHtml}  
       </div>
     </div>
     <div class="card__bottom">
@@ -184,11 +188,11 @@ function feedArrowBtnEvent() {
     const photos = document.querySelector(`.card__photo__${feedNum}`);
     const total = parseInt(photos.dataset.length);
     if (direction === 'next') {
-      // const dote = document.querySelector(
-      //   `.dote__btn__${feedNum}-${feedOrder}`
+      // const dot = document.querySelector(
+      //   `.dot__btn__${feedNum}-${feedOrder}`
       // );
 
-      // dote.classList.add('icon__dote__blue');
+      // dot.classList.add('icon__dot__blue');
       feedBtnBox.classList.remove('right');
       prevBtn.classList.remove('hidden');
       const position = feedOrder * parseInt(photoWidth);
@@ -201,10 +205,10 @@ function feedArrowBtnEvent() {
       if (feedOrder === total) {
         nextBtn.classList.remove('hidden');
       }
-      // const dote = document.querySelector(
-      //   `.dote__btn__${feedNum}-${feedOrder - 2}`
+      // const dot = document.querySelector(
+      //   `.dot__btn__${feedNum}-${feedOrder - 2}`
       // );
-      // dote.classList.add('icon__dote__blue');
+      // dot.classList.add('icon__dot__blue');
       const position = (feedOrder - 2) * parseInt(photoWidth);
       photos.style.transform = `translateX(-${position}px)`;
       feedBtnMap.set(feedNum, { now: feedOrder - 1, prev: feedOrder });
@@ -215,14 +219,14 @@ function feedArrowBtnEvent() {
     }
 
     const order = feedBtnMap.get(feedNum);
-    const nowDote = document.querySelector(
-      `.dote__btn__${feedNum}-${order.now - 1}`
+    const nowDot = document.querySelector(
+      `.dot__btn__${feedNum}-${order.now - 1}`
     );
-    nowDote.classList.add('icon__dote__blue');
-    const prevDote = document.querySelector(
-      `.dote__btn__${feedNum}-${order.prev - 1}`
+    nowDot.classList.add('icon__dot__blue');
+    const prevDot = document.querySelector(
+      `.dot__btn__${feedNum}-${order.prev - 1}`
     );
-    prevDote.classList.remove('icon__dote__blue');
+    prevDot.classList.remove('icon__dot__blue');
   };
 
   for (let btn of btns) {
