@@ -158,9 +158,9 @@ function displayStroy(storyUsers) {
 }
 
 function createStoryHtmlString(storyUsers) {
-  const story = storyUsers.story;
+  const story = storyUsers.story.story__src;
 
-  return `<li><img class="contents__story__profile" src="${storyUsers.profile__img}" alt="" /></li>`;
+  return `<li><img class="contents__story__profile story__${storyUsers.num}" src="${storyUsers.profile__img}" data-src="${story}" /></li>`;
 }
 
 const feedBtnMap = new Map();
@@ -329,11 +329,40 @@ function feedBtnEvent() {
   }
 }
 
+function storyModalEvent() {
+  const storyBtns = document.querySelectorAll('.contents__story__profile');
+  for (let storyBtn of storyBtns) {
+    storyBtn.addEventListener('click', (event) => popupSotry(event));
+  }
+}
+
+function popupSotry(event) {
+  const target = event.target;
+  const storySrc = target.dataset.src;
+  const popup = document.querySelector('.popup');
+  popup.classList.remove('hidden');
+
+  const popupContents = document.querySelector('.popup__story__content__box');
+  //<img src="img/fubao.png" alt="">
+  popupContents.innerHTML = `<img class="popup__story__content" src="${storySrc}" alt="">`;
+
+  const closeBtn = document.querySelector('.popup__close__btn');
+  closeBtn.addEventListener('click', () => {
+    popup.classList.add('hidden');
+  });
+
+  const popupLogo = document.querySelector('.popup__logo');
+  popupLogo.addEventListener('click', () => {
+    popup.classList.add('hidden');
+  });
+}
+
 function addBtnEvent() {
   addMoreBtnEvent();
   addStoryBtnEvent();
   feedBtnEvent();
   feedArrowBtnEvent();
+  storyModalEvent();
 }
 
 loadUsers()
