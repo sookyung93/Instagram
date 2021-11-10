@@ -332,11 +332,14 @@ function feedBtnEvent() {
 function storyModalEvent() {
   const storyBtns = document.querySelectorAll('.contents__story__profile');
   for (let storyBtn of storyBtns) {
-    storyBtn.addEventListener('click', (event) => popupSotry(event));
+    storyBtn.addEventListener('click', (event) => {
+      popupStory(event);
+      document.body.classList.add('noScroll');
+    });
   }
 }
 
-function popupSotry(event) {
+function popupStory(event) {
   const target = event.target;
   const storySrc = target.dataset.src;
   const popup = document.querySelector('.popup');
@@ -349,6 +352,7 @@ function popupSotry(event) {
   const closeBtn = document.querySelector('.popup__close__btn');
   closeBtn.addEventListener('click', () => {
     popup.classList.add('hidden');
+    document.body.classList.remove('noScroll');
   });
 
   const popupLogo = document.querySelector('.popup__logo');

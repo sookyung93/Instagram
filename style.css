@@ -430,3 +430,8 @@ li {
 .hidden {
   display: none;
 }
+
+.noScroll {
+  /* height: 100%; */
+  overflow: hidden;
+}
