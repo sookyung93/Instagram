@@ -12,7 +12,6 @@ function displayInfo(users) {
   const storyUsers = users.filter((user) => user.story);
   displayStroy(storyUsers);
 }
-
 function displayFeeds(feedUsers) {
   const container = document.querySelector('.contents__feed');
   container.innerHTML = feedUsers
@@ -59,7 +58,7 @@ function createFeedHtmlString(feedUser) {
   } else {
     textHTMl = text;
   }
-  return `<article class="contents__feed__card">
+  return `<article class="contents__feed__card card__${feedUser.num}">
     <div class="card__info">
       <div class="card__info__profile">
         <img class="profile__img" src="${feedUser.profile__img}" alt="" />
@@ -361,17 +360,59 @@ function popupStory(event) {
   });
 }
 
-function addBtnEvent() {
+const searchCover = document.querySelector('.navbar__search__cover');
+searchCover.addEventListener('click', () => {
+  searchCover.classList.add('hidden');
+  document.querySelector('.navbar__search__input').focus();
+});
+
+function findingFeed(type, value, users) {
+  const feeds = document.querySelectorAll('.contents__feed__card');
+  for (let feed of feeds) {
+    if (feed.classList.contains('hidden')) {
+      feed.classList.remove('hidden');
+    }
+  }
+  //tag로 feed 찾기
+  if (type === 'tag') {
+    const hidenFeedNums = [];
+    for (let user of users) {
+      if (user.feed) {
+        if (user.feed.tags) {
+          const tags = user.feed.tags;
+          if (!tags.includes(value)) {
+            hidenFeedNums.push(user.num);
+          }
+        }
+      }
+    }
+    for (let num of hidenFeedNums) {
+      document.querySelector(`.card__${num}`).classList.add('hidden');
+    }
+  }
+}
+
+function enterKey(event, users) {
+  if (event.key === 'Enter') {
+    const tagValue = event.target.value;
+    findingFeed('tag', tagValue, users);
+  }
+}
+
+function addEvent(users) {
   addMoreBtnEvent();
   addStoryBtnEvent();
   feedBtnEvent();
   feedArrowBtnEvent();
   storyModalEvent();
+  document
+    .querySelector('.navbar__search__input')
+    .addEventListener('keydown', (event) => enterKey(event, users));
 }
 
 loadUsers()
   .then((users) => {
     displayInfo(users);
-    addBtnEvent();
+    addEvent(users);
   })
   .catch(console.log);

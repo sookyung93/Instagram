@@ -22,8 +22,18 @@
       <div class="navbar__wrap">
         <img class="navbar__wrap__logo" src="img/instagram.png" alt="" />
         <div class="navbar__wrap__search">
-          <i class="fas fa-search"></i>
-          <p>검색</p>
+          <input
+            aria-label="입력 검색"
+            autocapitalize="none"
+            class="navbar__search__input"
+            placeholder="검색"
+            type="text"
+            value=""
+          />
+          <div class="navbar__search__cover">
+            <i class="fas fa-search"></i>
+            <p>검색</p>
+          </div>
         </div>
         <div class="navbar__wrap__icons">
           <i class="fas fa-home"></i>

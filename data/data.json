@@ -8,6 +8,7 @@
         "card__photo": ["img/gunhoo1.jpg"],
         "bottom__like__id": "zzang2",
         "comment__text": ["건후 귀요미", "#건후 볼 통통!", "#박건후 #슈돌"],
+        "tags": ["건후", "박건후", "슈돌"],
         "reply": [
           ["zzang2", "귀여워2"],
           ["zzang3", "귀여워3"],
@@ -30,6 +31,7 @@
         ],
         "bottom__like__id": "zzang3",
         "comment__text": ["건후 귀요미", "#건후 볼 통통!", "#박건후 #슈돌"],
+        "tags": ["건후", "박건후", "슈돌"],
         "reply": [
           ["zzang2", "귀여워2"],
           ["zzang3", "귀여워3"],
@@ -123,7 +125,12 @@
           "img/gunhoo6.jpg"
         ],
         "bottom__like__id": "zzang3",
-        "comment__text": ["건후 귀요미", "#건후 볼 통통!", "#박건후 #슈돌"],
+        "comment__text": [
+          "건후 귀요미",
+          "#건후 볼 통통!",
+          "#박건후 #슈펀맨이돌아왔다"
+        ],
+        "tags": ["건후", "박건후", "슈퍼맨이돌아왔다"],
         "reply": [
           ["zzang2", "귀여워2"],
           ["zzang3", "귀여워3"],
