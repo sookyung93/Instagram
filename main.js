@@ -367,6 +367,11 @@ searchCover.addEventListener('click', () => {
 });
 
 function findingFeed(type, value, users) {
+  const hiddenFeed = (hidenFeedNums) => {
+    for (let num of hidenFeedNums) {
+      document.querySelector(`.card__${num}`).classList.add('hidden');
+    }
+  };
   const feeds = document.querySelectorAll('.contents__feed__card');
   for (let feed of feeds) {
     if (feed.classList.contains('hidden')) {
@@ -386,6 +391,22 @@ function findingFeed(type, value, users) {
         }
       }
     }
+    // hiddenFeed(hidenFeedNums);
+    for (let num of hidenFeedNums) {
+      document.querySelector(`.card__${num}`).classList.add('hidden');
+    }
+  }
+
+  //id로 feed 찾기
+  if (type === 'id') {
+    const hidenFeedNums = [];
+    for (let user of users) {
+      if (user.feed) {
+        if (user.profile__name !== value) {
+          hidenFeedNums.push(user.num);
+        }
+      }
+    }
     for (let num of hidenFeedNums) {
       document.querySelector(`.card__${num}`).classList.add('hidden');
     }
@@ -394,8 +415,17 @@ function findingFeed(type, value, users) {
 
 function enterKey(event, users) {
   if (event.key === 'Enter') {
-    const tagValue = event.target.value;
-    findingFeed('tag', tagValue, users);
+    let inputValue = event.target.value;
+    let value;
+    let type;
+    if (inputValue[0] === '#') {
+      type = 'tag';
+      value = inputValue.slice(1, inputValue.length);
+    } else {
+      type = 'id';
+      value = inputValue;
+    }
+    findingFeed(type, value, users);
   }
 }
 
