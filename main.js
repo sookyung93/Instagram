@@ -391,10 +391,10 @@ function findingFeed(type, value, users) {
         }
       }
     }
-    // hiddenFeed(hidenFeedNums);
-    for (let num of hidenFeedNums) {
-      document.querySelector(`.card__${num}`).classList.add('hidden');
-    }
+    hiddenFeed(hidenFeedNums);
+    // for (let num of hidenFeedNums) {
+    //   document.querySelector(`.card__${num}`).classList.add('hidden');
+    // }
   }
 
   //id로 feed 찾기
@@ -407,9 +407,10 @@ function findingFeed(type, value, users) {
         }
       }
     }
-    for (let num of hidenFeedNums) {
-      document.querySelector(`.card__${num}`).classList.add('hidden');
-    }
+    hiddenFeed(hidenFeedNums);
+    // for (let num of hidenFeedNums) {
+    //   document.querySelector(`.card__${num}`).classList.add('hidden');
+    // }
   }
 }
 
@@ -429,6 +430,15 @@ function enterKey(event, users) {
   }
 }
 
+function showAllFeed() {
+  const feeds = document.querySelectorAll('.contents__feed__card');
+  for (let feed of feeds) {
+    if (feed.classList.contains('hidden')) {
+      feed.classList.remove('hidden');
+    }
+  }
+}
+
 function addEvent(users) {
   addMoreBtnEvent();
   addStoryBtnEvent();
@@ -438,6 +448,9 @@ function addEvent(users) {
   document
     .querySelector('.navbar__search__input')
     .addEventListener('keydown', (event) => enterKey(event, users));
+  document
+    .querySelector('.navbar__wrap__logo')
+    .addEventListener('click', () => showAllFeed());
 }
 
 loadUsers()

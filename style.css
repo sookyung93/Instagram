@@ -80,6 +80,7 @@ li {
 
 .navbar__wrap__logo {
   width: 100px;
+  cursor: pointer;
 }
 
 .navbar__wrap__search {
