@@ -134,7 +134,7 @@ li {
 .contents__story__box {
   background-color: aquamarine; /*삭제*/
   width: 100%;
-  height: 100px;
+  height: 120px;
   display: flex;
   align-items: center;
   position: relative;
@@ -151,6 +151,12 @@ li {
   border-radius: 50%;
   margin-left: 20px;
   cursor: pointer;
+}
+
+.contents__story__id {
+  width: var(--profile-image-big-size);
+  margin-left: 20px;
+  text-align: center;
 }
 
 .contents__story__button {

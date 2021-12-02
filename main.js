@@ -157,9 +157,22 @@ function displayStroy(storyUsers) {
 }
 
 function createStoryHtmlString(storyUsers) {
+  console.log(storyUsers.profile__name);
   const story = storyUsers.story.story__src;
+  let id =
+    storyUsers.profile__name.length > 9
+      ? storyUsers.profile__name.substr(0, 5) + '..'
+      : storyUsers.profile__name;
+  // if (storyUsers.profile__name.length > 9) {
+  //   id = storyUsers.profile__name.substr(0, 5) + '..';
+  // } else {
+  //   id = storyUsers.profile__name
+  // }
 
-  return `<li><img class="contents__story__profile story__${storyUsers.num}" src="${storyUsers.profile__img}" data-src="${story}" /></li>`;
+  return `<li>
+  <img class="contents__story__profile story__${storyUsers.num}" src="${storyUsers.profile__img}" data-src="${story}" />
+  <p class="contents__story__id">${id}</p>
+  </li>`;
 }
 
 const feedBtnMap = new Map();
