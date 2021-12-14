@@ -8,12 +8,19 @@
   --color-black: #000000;
   --color-blue: #00376b;
 
-  /* Size */
+  /* PC Size */
   --size-border-radius: 4px;
   --card-padding: 12px;
-  --profile-image-big-size: 80px;
-  --profile-image-small-size: 40px;
+  --story-profile-image: 80px;
+  --profile-image: 40px;
   --contents-width: 614px;
+  --story-box-height: 120px;
+
+  /* Mobile Size */
+  --card-padding-mobile: 4px;
+  --story-box-height-mobile: 64px;
+  --story-profile-image-mobile: 40px;
+  --profile-image-mobile: 28px;
 
   /*Animation*/
   --animation-duration: 0.7s;
@@ -134,7 +141,7 @@ li {
 .contents__story__box {
   background-color: aquamarine; /*삭제*/
   width: 100%;
-  height: 120px;
+  height: var(--story-box-height);
   display: flex;
   align-items: center;
   position: relative;
@@ -146,8 +153,8 @@ li {
 }
 
 .contents__story__profile {
-  width: var(--profile-image-big-size);
-  height: var(--profile-image-big-size);
+  width: var(--story-profile-image);
+  height: var(--story-profile-image);
   border-radius: 50%;
   margin-left: 20px;
   cursor: pointer;
@@ -197,8 +204,8 @@ li {
 }
 
 .profile__img {
-  width: var(--profile-image-small-size);
-  height: var(--profile-image-small-size);
+  width: var(--profile-image);
+  height: var(--profile-image);
   border-radius: 50%;
   margin-right: 12px;
 }
@@ -289,6 +296,7 @@ li {
 .card__bottom {
   padding: 0 var(--card-padding);
 }
+
 .comment__id {
   font-weight: 600;
 }
@@ -387,8 +395,8 @@ li {
 }
 
 .people__profile__img {
-  width: var(--profile-image-small-size);
-  height: var(--profile-image-small-size);
+  width: var(--profile-image);
+  height: var(--profile-image);
   border-radius: 50%;
 }
 
@@ -454,4 +462,92 @@ li {
 .noScroll {
   /* height: 100%; */
   overflow: hidden;
+}
+
+@media screen and (max-width: 767px) {
+  :root {
+    --card-padding: 4px;
+    --story-box-height: 64px;
+    --story-profile-image: 40px;
+    --profile-image: 32px;
+  }
+
+  P {
+    font-size: 10px;
+  }
+
+  span {
+    font-size: 10px;
+  }
+
+  .navbar {
+    background-color: black;
+  }
+
+  .navbar__wrap {
+    display: none;
+  }
+
+  .main {
+    padding: 0;
+  }
+
+  .contents {
+    width: 100%;
+  }
+
+  .contents__story__profile {
+    margin-left: 8px;
+  }
+
+  .contents__story__id {
+    font-size: 10px;
+    margin-left: 8px;
+  }
+
+  .card__info {
+    height: 40px;
+  }
+
+  .profile__name {
+    line-height: 28px;
+    font-size: 10px;
+  }
+
+  .card__info__more-btn {
+    line-height: var(--profile-image);
+  }
+
+  .card__icons {
+    height: 30px;
+  }
+
+  .icon__heart,
+  .icon__comment,
+  .icon__share,
+  .icon__bookmark {
+    font-size: 16px;
+  }
+
+  .icons__middle {
+    position: absolute;
+    left: 50%;
+    height: 16px;
+  }
+
+  .icons__middle {
+    transform: scale(0.5) translateX(-100%);
+    left: 50%;
+  }
+  .card__bottom {
+    padding: 0 var(--card-padding) calc(var(--card-padding) * 2)
+      var(--card-padding);
+  }
+  .bottom__comment {
+    padding: 0;
+  }
+
+  .bottom__write-box {
+    display: none;
+  }
 }
