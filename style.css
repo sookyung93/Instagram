@@ -481,10 +481,25 @@ li {
   }
 
   .navbar {
-    background-color: black;
+    padding: 0 4px;
+    height: 40px;
   }
 
-  .navbar__wrap {
+  .navbar__wrap__logo {
+    width: 60px;
+  }
+
+  .navbar__wrap__search {
+    display: none;
+  }
+
+  .navbar__wrap__icons i {
+    font-size: 16px;
+    margin-left: 8px;
+  }
+
+  .fa-home,
+  .fa-compass {
     display: none;
   }
 
