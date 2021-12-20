@@ -131,6 +131,7 @@ li {
   height: 100vh;
   padding: 0 20%;
   display: flex;
+  justify-content: center;
 }
 
 .contents {
@@ -356,50 +357,6 @@ li {
   font-size: 16px;
 }
 
-.info {
-  display: none;
-  width: 320px;
-  height: 500px;
-  background-color: bisque; /*삭제*/
-  margin-left: 20px;
-  position: fixed;
-  right: 20%;
-  padding: 28px 12px;
-}
-
-.info__my-profile {
-  display: flex;
-  margin-bottom: 28px;
-}
-
-.my-profile__img {
-  width: var(--profile-image-big-size);
-  height: var(--profile-image-big-size);
-  border-radius: 50%;
-}
-
-.recommend__text {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.people {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-
-.people__profile {
-  display: flex;
-}
-
-.people__profile__img {
-  width: var(--profile-image);
-  height: var(--profile-image);
-  border-radius: 50%;
-}
-
 .popup {
   z-index: 100;
   position: absolute;
@@ -508,7 +465,7 @@ li {
   }
 
   .contents {
-    width: 100%;
+    width: 100vw;
   }
 
   .contents__story__profile {
@@ -527,6 +484,9 @@ li {
   .profile__name {
     line-height: 28px;
     font-size: 10px;
+  }
+  .feed__arrow-btn__box {
+    width: 100vw;
   }
 
   .card__info__more-btn {
