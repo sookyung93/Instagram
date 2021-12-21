@@ -59,7 +59,7 @@ function createFeedHtmlString(feedUser) {
   } else {
     textHTMl = text;
   }
-  return `<article class="contents__feed__card card__${feedUser.num}">
+  return `<article class="contents__feed__card card__${feedUser.num}" data-card_num="${feedUser.num}">
     <div class="card__info">
       <div class="card__info__profile">
         <img class="profile__img" src="${feedUser.profile__img}" alt="" />
@@ -73,17 +73,17 @@ function createFeedHtmlString(feedUser) {
       ${imgHtml}
       </div>
     </div>
-    <div class="card__icons">
+    <div class="card__icons" data-icons_num = "${feedUser.num}">
       <div class="icons__left">
       <button
       class="feed_icon icon__heart far fa-heart"
       data-shape="heart"
-      data-detail="empty__heart"
+      data-detail="empty__heart__${feedUser.num}"
     ></button>
     <button
       class="feed_icon icon__heart full hidden fas fa-heart"
       data-shape="heart"
-      data-detail="full__heart"
+      data-detail="full__heart__${feedUser.num}"
     ></button>
     <button
       class="feed_icon icon__comment far fa-comment"
@@ -97,12 +97,12 @@ function createFeedHtmlString(feedUser) {
       <button
       class="feed_icon icon__bookmark far fa-bookmark"
       data-shape="bookmark"
-      data-detail="empty__bookmark"
+      data-detail="empty__bookmark__${feedUser.num}"
     ></button>
     <button
       class="feed_icon icon__bookmark full hidden fas fa-bookmark"
       data-shape="bookmark"
-      data-detail="full__bookmark"
+      data-detail="full__bookmark__${feedUser.num}"
     ></button>
       <div class="icons__middle">
         ${dotBtnHtml}  
@@ -323,12 +323,14 @@ function feedBtnEvent() {
       const btnTarget = event.target;
       const shape = btnTarget.dataset.shape;
       const detail = btnTarget.dataset.detail;
-
+      const cardNum = btnTarget.parentElement.offsetParent.dataset.card_num;
       switch (shape) {
         case 'heart':
         case 'bookmark':
           const apearBtn =
-            detail === `empty__${shape}` ? `full__${shape}` : `empty__${shape}`;
+            detail === `empty__${shape}__${cardNum}`
+              ? `full__${shape}__${cardNum}`
+              : `empty__${shape}__${cardNum}`;
           btnTarget.classList.add('hidden');
           document
             .querySelector(`[data-detail="${apearBtn}"]`)
