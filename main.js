@@ -68,7 +68,7 @@ function createFeedHtmlString(feedUser) {
     </div>
     <div class="card__photo__container" data-container="${feedUser.num}">     
     ${arrowBtnHtml}
-      <div class="card__photo card__photo__${feedUser.num}" data-length="${feed.card__photo.length}" style="width: ${feed.card__photo.length}00%"> 
+      <div class="card__photo card__photo__${feedUser.num}" data-num="${feedUser.num}" data-length="${feed.card__photo.length}" style="width: ${feed.card__photo.length}00%"> 
       ${imgHtml}
       </div>
     </div>
@@ -157,7 +157,6 @@ function displayStroy(storyUsers) {
 }
 
 function createStoryHtmlString(storyUsers) {
-  console.log(storyUsers.profile__name);
   const story = storyUsers.story.story__src;
   let id =
     storyUsers.profile__name.length > 9
@@ -176,73 +175,67 @@ function createStoryHtmlString(storyUsers) {
 }
 
 const feedBtnMap = new Map();
-function feedArrowBtnEvent() {
-  const btns = document.querySelectorAll('.feed__arrow-button');
+function moveFeed(feedNum, type, direction) {
+  const feedBtnBox = document.querySelector(`.feed__btn__box__${feedNum}`);
+  const prevBtn = document.querySelector(`.feed__prev__btn__${feedNum}`);
+  const nextBtn = document.querySelector(`.feed__next__btn__${feedNum}`);
   let feedOrder = 1;
 
-  const moveFeed = (event) => {
-    const direction = event.target.dataset.key;
-    if (direction == null) {
+  if (!feedBtnMap.has(feedNum)) {
+    feedBtnMap.set(feedNum, { now: feedOrder, prev: 1 });
+  }
+  feedOrder = feedBtnMap.get(feedNum).now;
+
+  const photoWidth = document.querySelector('.card__photo__inner').offsetWidth;
+  const photos = document.querySelector(`.card__photo__${feedNum}`);
+  const total = parseInt(photos.dataset.length);
+
+  if (direction === 'next') {
+    if (type === 'touch' && parseInt(total) === feedOrder) {
       return;
     }
-    const feedNum = event.target.dataset.num;
-    const feedBtnBox = document.querySelector(`.feed__btn__box__${feedNum}`);
-    const prevBtn = document.querySelector(`.feed__prev__btn__${feedNum}`);
-    const nextBtn = document.querySelector(`.feed__next__btn__${feedNum}`);
-    if (!feedBtnMap.has(feedNum)) {
-      feedBtnMap.set(feedNum, { now: feedOrder, prev: 1 });
+    feedBtnBox.classList.remove('right');
+    prevBtn.classList.remove('hidden');
+    const position = feedOrder * parseInt(photoWidth);
+    photos.style.transform = `translateX(-${position}px)`;
+    feedBtnMap.set(feedNum, { now: feedOrder + 1, prev: feedOrder });
+    if (type === 'btn' && parseInt(total) === feedOrder + 1) {
+      nextBtn.classList.add('hidden');
     }
-    feedOrder = feedBtnMap.get(feedNum).now;
-    const photoWidth = document.querySelector(
-      '.card__photo__inner'
-    ).offsetWidth;
-
-    const photos = document.querySelector(`.card__photo__${feedNum}`);
-    const total = parseInt(photos.dataset.length);
-    if (direction === 'next') {
-      // const dot = document.querySelector(
-      //   `.dot__btn__${feedNum}-${feedOrder}`
-      // );
-
-      // dot.classList.add('icon__dot__blue');
-      feedBtnBox.classList.remove('right');
-      prevBtn.classList.remove('hidden');
-      const position = feedOrder * parseInt(photoWidth);
-      photos.style.transform = `translateX(-${position}px)`;
-      feedBtnMap.set(feedNum, { now: feedOrder + 1, prev: feedOrder });
-      if (parseInt(total) === feedOrder + 1) {
-        nextBtn.classList.add('hidden');
-      }
-    } else {
-      if (feedOrder === total) {
-        nextBtn.classList.remove('hidden');
-      }
-      // const dot = document.querySelector(
-      //   `.dot__btn__${feedNum}-${feedOrder - 2}`
-      // );
-      // dot.classList.add('icon__dot__blue');
-      const position = (feedOrder - 2) * parseInt(photoWidth);
-      photos.style.transform = `translateX(-${position}px)`;
-      feedBtnMap.set(feedNum, { now: feedOrder - 1, prev: feedOrder });
-      if (feedOrder - 1 === 1) {
-        prevBtn.classList.add('hidden');
-        feedBtnBox.classList.add('right');
-      }
+  } else {
+    if (feedOrder === total) {
+      nextBtn.classList.remove('hidden');
     }
+    if (type === 'touch' && feedOrder === 1) {
+      return;
+    }
+    const position = (feedOrder - 2) * parseInt(photoWidth);
+    photos.style.transform = `translateX(-${position}px)`;
+    feedBtnMap.set(feedNum, { now: feedOrder - 1, prev: feedOrder });
+    if (type === 'btn' && feedOrder - 1 === 1) {
+      prevBtn.classList.add('hidden');
+      feedBtnBox.classList.add('right');
+    }
+  }
+  const order = feedBtnMap.get(feedNum);
+  const nowDot = document.querySelector(
+    `.dot__btn__${feedNum}-${order.now - 1}`
+  );
+  nowDot.classList.add('icon__dot__blue');
+  const prevDot = document.querySelector(
+    `.dot__btn__${feedNum}-${order.prev - 1}`
+  );
+  prevDot.classList.remove('icon__dot__blue');
+}
 
-    const order = feedBtnMap.get(feedNum);
-    const nowDot = document.querySelector(
-      `.dot__btn__${feedNum}-${order.now - 1}`
-    );
-    nowDot.classList.add('icon__dot__blue');
-    const prevDot = document.querySelector(
-      `.dot__btn__${feedNum}-${order.prev - 1}`
-    );
-    prevDot.classList.remove('icon__dot__blue');
-  };
-
+function feedArrowBtnEvent() {
+  const btns = document.querySelectorAll('.feed__arrow-button');
   for (let btn of btns) {
-    btn.addEventListener('click', (event) => moveFeed(event));
+    btn.addEventListener('click', function (event) {
+      const direction = event.target.dataset.key;
+      const feedNum = event.target.dataset.num;
+      moveFeed(feedNum, 'btn', direction);
+    });
   }
 }
 
@@ -452,6 +445,30 @@ function showAllFeed() {
   }
 }
 
+function feedTouchEvent(params) {
+  const containers = document.querySelectorAll('.card__photo__container');
+
+  for (let container of containers) {
+    let startX;
+    let endX;
+    let feedNum;
+    container.addEventListener('touchstart', function (event) {
+      feedNum = document.querySelector(
+        `.${event.target.offsetParent.classList[1]}`
+      ).dataset.num;
+      startX = event.touches[0].pageX;
+    });
+
+    container.addEventListener('touchend', function (event) {
+      endX = event.changedTouches[0].pageX;
+
+      const direction = startX > endX ? 'next' : 'prev';
+
+      moveFeed(feedNum, 'touch', direction);
+    });
+  }
+}
+
 function addEvent(users) {
   addMoreBtnEvent();
   addStoryBtnEvent();
@@ -464,8 +481,8 @@ function addEvent(users) {
   document
     .querySelector('.navbar__wrap__logo')
     .addEventListener('click', () => showAllFeed());
+  feedTouchEvent();
 }
-
 loadUsers()
   .then((users) => {
     displayInfo(users);

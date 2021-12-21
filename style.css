@@ -487,6 +487,7 @@ li {
   }
   .feed__arrow-btn__box {
     width: 100vw;
+    display: none;
   }
 
   .card__info__more-btn {
