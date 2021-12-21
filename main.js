@@ -12,6 +12,7 @@ function displayInfo(users) {
   const storyUsers = users.filter((user) => user.story);
   displayStroy(storyUsers);
 }
+
 function displayFeeds(feedUsers) {
   const container = document.querySelector('.contents__feed');
   container.innerHTML = feedUsers
@@ -174,6 +175,7 @@ function createStoryHtmlString(storyUsers) {
   </li>`;
 }
 
+//피드 넘기기(버튼+터치)
 const feedBtnMap = new Map();
 function moveFeed(feedNum, type, direction) {
   const feedBtnBox = document.querySelector(`.feed__btn__box__${feedNum}`);
@@ -239,6 +241,7 @@ function feedArrowBtnEvent() {
   }
 }
 
+//스토리 옆으로 넘기기
 function addStoryBtnEvent() {
   const netxBtn = document.querySelector('.next');
   const prevBtn = document.querySelector('.prev');
@@ -297,6 +300,7 @@ function addStoryBtnEvent() {
   }
 }
 
+//피드 내용 더보기 버튼
 function addMoreBtnEvent() {
   const btn = document.querySelectorAll('.btn__more');
   for (let i = 0; i < btn.length; i++) {
@@ -310,6 +314,7 @@ function addMoreBtnEvent() {
   }
 }
 
+//피드 아이콘 이벤트
 function feedBtnEvent() {
   const btns = document.querySelectorAll('.feed_icon');
 
