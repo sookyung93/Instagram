@@ -48,6 +48,7 @@ function createFeedHtmlString(feedUser) {
     imgHtml = `<div class="card__photo__inner" style="width:100%"> <img src="${photos[0]}" alt=""/> </div>`;
   }
   const text = feed.comment__text;
+  console.log(feedUser);
   let textHTMl;
   if (text.length > 1) {
     let hiddenText = '';
@@ -114,7 +115,7 @@ function createFeedHtmlString(feedUser) {
         <span class="bottom__like__count">여러명</span>이 좋아합니다.
       </p>
       <div class="bottom__comment">
-        <span class="comment__id">${feed.profile__name}</span>
+        <span class="comment__id">${feedUser.profile__name}</span>
         <span class="comment__text"
           >${textHTMl}</span
         >
